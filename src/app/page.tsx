@@ -1,65 +1,93 @@
-import Image from "next/image";
+import { ArrowRight, Zap, Terminal, Share2, Layers, Cpu } from "lucide-react";
 
-export default function Home() {
+export default function HorazionLanding() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="min-h-screen bg-[var(--bg)] flex flex-col items-center">
+      {/* 1. Hero Section - Engenharia de Precisão */}
+      <section className="w-full max-w-[720px] pt-32 pb-16 px-6 text-center">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-subtle)] border border-[var(--border)] mb-8">
+          <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+          <span className="text-[12px] font-medium text-[var(--text-secondary)] uppercase tracking-widest">
+            Infraestrutura Viva de UI
+          </span>
+        </div>
+        
+        <h1 className="text-[40px] md:text-[64px] leading-[1.1] font-[700] text-[var(--text-primary)] tracking-tight mb-6">
+          Onde o Design se torna <br /> 
+          <span className="text-transparent bg-clip-text bg-[var(--accent)]">DNA Digital.</span>
+        </h1>
+        
+        <p className="text-[18px] leading-[28px] text-[var(--text-secondary)] mb-10 max-w-[600px] mx-auto">
+          Elimine a discrepância entre o design conceitual e o código de produção. 
+          Sincronização bidirecional em tempo real com zero lock-in[cite: 1, 31].
+        </p>
+
+        <div className="flex items-center justify-center gap-4">
+          <button className="h-[44px] px-8 rounded-[12px] bg-[var(--accent)] text-white font-[600] hover:opacity-90 transition-opacity flex items-center gap-2">
+            Iniciar Sincronia <ArrowRight size={18} />
+          </button>
+          <button className="h-[44px] px-8 rounded-[12px] border border-[var(--border)] bg-white text-[var(--text-primary)] font-[600] hover:bg-[var(--hz-surface)] transition-colors">
+            Ver Lab
+          </button>
+        </div>
+      </section>
+
+      {/* 2. Grid de Componentes - A Arquitetura de DNA */}
+      <section className="w-full max-w-[1200px] py-20 px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <FeatureCard 
+          icon={<Terminal size={24} />} 
+          title="Studio" 
+          desc="Editor visual onde decisões de design tornam-se propriedades semânticas[cite: 9, 10]." 
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <FeatureCard 
+          icon={<Cpu size={24} />} 
+          title="Engine" 
+          desc="Cérebro interpretativo que gera código React/TypeScript puro e acessível[cite: 13, 14]." 
+        />
+        <FeatureCard 
+          icon={<Layers size={24} />} 
+          title="Bridge" 
+          desc="Sincronização CLI bidirecional (npx horazion sync) sem copiar e colar[cite: 17, 19]." 
+        />
+      </section>
+
+      {/* 3. Status de Performance - Orçamento de Latência */}
+      <div className="fixed bottom-8 left-8 hidden lg:block">
+        <div className="p-4 rounded-[16px] bg-white border border-[var(--border)] shadow-[var(--shadow-sm)]">
+          <div className="text-[10px] uppercase tracking-tighter text-[var(--text-tertiary)] mb-2 font-bold">
+            Live Performance Metrics [cite: 95]
+          </div>
+          <div className="space-y-1">
+            <Metric label="API Latency" value="< 200ms" color="bg-green-500" />
+            <Metric label="Render Sync" value="60 fps" color="bg-green-500" />
+            <Metric label="Micro-interactions" value="< 15ms" color="bg-green-500" />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
+    </main>
+  );
+}
+
+function FeatureCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+  return (
+    <div className="p-[24px] rounded-[16px] bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all group">
+      <div className="w-12 h-12 rounded-[12px] bg-[var(--bg-subtle)] flex items-center justify-center text-[var(--text-primary)] mb-6 group-hover:scale-110 transition-transform">
+        {icon}
+      </div>
+      <h3 className="text-[20px] font-[600] text-[var(--text-primary)] mb-3">{title}</h3>
+      <p className="text-[14px] leading-[22px] text-[var(--text-secondary)]">{desc}</p>
+    </div>
+  );
+}
+
+function Metric({ label, value, color }: { label: string, value: string, color: string }) {
+  return (
+    <div className="flex items-center justify-between gap-8">
+      <span className="text-[12px] text-[var(--text-secondary)]">{label}</span>
+      <div className="flex items-center gap-2">
+        <span className="text-[12px] font-mono font-bold text-[var(--text-primary)]">{value}</span>
+        <div className={`w-1.5 h-1.5 rounded-full ${color}`} />
+      </div>
     </div>
   );
 }
