@@ -1,69 +1,86 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Awakening } from './scenes/Ato0_Awakening';
+import { Identity } from './scenes/Ato1_Identity';
+import { Nexus } from './scenes/Ato2_Nexus';
+import { LinkScene } from './scenes/Ato3_Link';
+import { Spectrum } from './scenes/Ato4_Spectrum';
+import { Intelligence } from './scenes/Ato5_Intelligence';
+import { Architecture } from './scenes/Ato6_Architecture';
+import { saveOnboardingData } from './actions';
 
 export default function OnboardingPage() {
-  const [ato, setAto] = useState(0);
+  const [step, setStep] = useState(1); // Iniciando no 1 para testar o avatar
+  const totalSteps = 7;
 
-  // Simulação do despertar do sistema (Ato 0)
-  useEffect(() => {
-    if (ato === 0) {
-      const timer = setTimeout(() => setAto(1), 3500);
-      return () => clearTimeout(timer);
-    }
-  }, [ato]);
+  const [formData, setFormData] = useState({
+    identity: { username: '', role: '', pronoun: '', sexuality: '', avatarBlob: null },
+    nexus: { workspace: '', org: '' },
+    links: { github: false, google: false, slack: false, notion: false },
+    spectrum: { theme: 'system', accent: '#F00511' },
+    intelligence: { focus: '' }
+  });
+
+  const nextStep = () => setStep((s) => Math.min(totalSteps, s + 1));
+  const prevStep = () => setStep((s) => Math.max(0, s - 1));
+
+  const handleFinish = async () => {
+    await saveOnboardingData(formData);
+    window.location.href = '/dashboard';
+  };
 
   return (
-    <main className="min-h-screen bg-[#161616] text-white flex items-center justify-center relative overflow-hidden">
-      <AnimatePresence mode="wait">
-        {ato === 0 && (
-          <motion.div 
-            key="awakening"
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }}
-            className="flex flex-col items-center gap-6"
-          >
-            {/* O Ponto de Presença */}
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.5, 1],
-                opacity: [0.2, 0.8, 0.2]
-              }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-2 h-2 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-            />
-            <div className="flex flex-col items-center">
-              <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-gray-500 mb-2">
-                System Awakening
-              </span>
-              <span className="text-[12px] font-mono text-gray-400">
-                Detecting operator presence...
-              </span>
+    <main className="h-screen w-full bg-[var(--bg)] text-[var(--text-primary)] relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-700">
+      
+      {/* 1. DNA Progress Bar */}
+      <div className="absolute top-0 left-0 w-full p-8 flex justify-center z-50">
+        <div className="w-full max-w-[800px] flex gap-2">
+          {Array.from({ length: totalSteps + 1 }).map((_, i) => (
+            <div key={i} className="h-[4px] flex-1 bg-[var(--bg-subtle)] rounded-full overflow-hidden border border-[var(--border)]/50">
+              <motion.div 
+                className="h-full bg-[var(--hz-black)]"
+                initial={{ width: "0%" }}
+                animate={{ width: step >= i ? "100%" : "0%" }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              />
             </div>
-          </motion.div>
-        )}
+          ))}
+        </div>
+      </div>
 
-        {ato === 1 && (
-          <motion.div 
-            key="identity"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-[400px] px-6"
-          >
-            <div className="space-y-2 mb-12">
-              <span className="text-[12px] font-mono text-gray-500 uppercase tracking-widest">Ato 1 — Identity</span>
-              <h2 className="text-[32px] font-bold tracking-tight">Define who enters the system.</h2>
-            </div>
-            
-            {/* Próximos Atos serão injetados aqui */}
-            <div className="p-8 border border-dashed border-gray-800 rounded-[20px] text-center text-gray-600">
-              Próxima cena: Coleta de Identity (Nome, Role, etc.)
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* 2. Centro Interativo (No-Scroll Viewport) */}
+      <div className="w-full max-w-[1200px] h-full max-h-[700px] flex items-center justify-center p-6 z-10">
+        <AnimatePresence mode="wait">
+          {step === 0 && <Awakening key="ato0" onNext={nextStep} />}
+          {step === 1 && (
+            <Identity 
+              key="ato1" 
+              data={formData.identity} 
+              update={(d: any) => setFormData({...formData, identity: d})} 
+              onNext={nextStep} 
+            />
+          )}
+          {step === 2 && <Nexus key="ato2" data={formData.nexus} update={(d: any) => setFormData({...formData, nexus: d})} onNext={nextStep} onBack={prevStep} />}
+          {step === 3 && <LinkScene key="ato3" data={formData.links} update={(d: any) => setFormData({...formData, links: d})} onNext={nextStep} onBack={prevStep} />}
+          {step === 4 && <Spectrum key="ato4" data={formData.spectrum} update={(d: any) => setFormData({...formData, spectrum: d})} onNext={nextStep} onBack={prevStep} />}
+          {step === 5 && <Intelligence key="ato5" data={formData.intelligence} update={(d: any) => setFormData({...formData, intelligence: d})} onNext={nextStep} onBack={prevStep} />}
+          {step === 6 && <Architecture key="ato6" onComplete={handleFinish} />}
+        </AnimatePresence>
+      </div>
+
+      {/* 3. Global Gray Filtered Logo (Footer-ish) */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-none z-0 opacity-30">
+        <img 
+          src="/isologo/horazion.svg" 
+          alt="Horazion DNA" 
+          className="w-16 h-16 grayscale opacity-80" // Filtro cinza e opacidade baixa
+        />
+      </div>
+
+      {/* Decorative Gradient Overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[var(--bg)] to-transparent pointer-events-none z-0" />
     </main>
   );
 }
