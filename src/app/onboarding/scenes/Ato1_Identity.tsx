@@ -90,18 +90,18 @@ export function Identity({ data, update, onNext }: any) {
             </div>
             
             <div className="text-center space-y-1">
-              <h3 className="text-[18px] font-bold tracking-tight text-[var(--text-primary)]">Operator Avatar</h3>
+              <h3 className="text-[18px] font-bold tracking-tight text-[var(--text-primary)]">Avatar</h3>
               <p className="text-[12px] text-[var(--text-tertiary)] max-w-[200px]">Adicione foto do dispositivo ou tire da câmera.</p>
             </div>
           </div>
 
           <div className="space-y-3">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Nexus Handle (@)</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Seu apelido (@)</label>
             <div className="relative">
               <input 
                 value={data.username}
                 onChange={(e) => update({...data, username: e.target.value.toLowerCase().replace(/\s/g, '')})}
-                placeholder="operador_alpha"
+                placeholder="Apelido"
                 className={`w-full h-[52px] px-5 rounded-[16px] border bg-[var(--bg)] text-[18px] font-medium outline-none transition-all ${status === 'available' ? 'border-green-500' : status === 'taken' ? 'border-red-500' : 'focus:border-[var(--hz-black)]'}`}
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
@@ -117,7 +117,7 @@ export function Identity({ data, update, onNext }: any) {
         <div className="col-span-12 lg:col-span-7 space-y-10">
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-4">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Pronoun Preference</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Pronome</label>
               <div className="flex flex-wrap gap-2">
                 {['Ele/Dele', 'Ela/Dela', 'Elu/Delu', 'Outro'].map(p => (
                   <Pill key={p} label={p} active={data.pronoun === p} onClick={() => update({...data, pronoun: p})} />
@@ -125,7 +125,7 @@ export function Identity({ data, update, onNext }: any) {
               </div>
             </div>
             <div className="space-y-4">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Identity Spectrum</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Sexualidade</label>
               <div className="flex flex-wrap gap-2">
                 {['Hetero', 'Homo', 'Bi', 'Pan', 'Assexual', '+'].map(s => (
                   <Pill key={s} label={s} active={data.sexuality === s} onClick={() => update({...data, sexuality: s})} />
@@ -135,7 +135,7 @@ export function Identity({ data, update, onNext }: any) {
           </div>
 
           <div className="space-y-4">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Core Specialization</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Você é...</label>
             <div className="grid grid-cols-4 gap-3">
               <RoleCard icon={<Terminal size={20}/>} label="Developer" active={data.role === 'Developer'} onClick={() => update({...data, role: 'Developer'})} />
               <RoleCard icon={<PenTool size={20}/>} label="Designer" active={data.role === 'Designer'} onClick={() => update({...data, role: 'Designer'})} />
@@ -150,7 +150,7 @@ export function Identity({ data, update, onNext }: any) {
               onClick={onNext}
               className="group flex items-center justify-center gap-3 h-[56px] px-12 bg-[var(--hz-black)] text-white rounded-[18px] font-bold text-[16px] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 shadow-[var(--shadow-md)]"
             >
-              Establish Identity <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              Avançar <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
