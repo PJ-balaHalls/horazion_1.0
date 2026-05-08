@@ -172,6 +172,7 @@ export default function OnboardingPage() {
           {step === 6 && (
             <Architecture 
               key="ato6" 
+              data={formData}
               onComplete={handleFinish} 
             />
           )}

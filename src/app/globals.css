@@ -4,133 +4,147 @@
 
 @layer base {
   :root {
-    /* ========================================= */
-    /* 1. CORES BASE (Tema Claro por Padrão)     */
-    /* ========================================= */
+    /* Cores Base Inerentes */
     --hz-black: #161616;
-    --hz-gray: #777777;
-    --hz-silver: #C3C3C3;
-    --hz-mist: #EBEBEB;
     --hz-white: #FFFFFF;
-    --hz-surface: #FAFAFA;
+    --hz-silver: #E5E7EB;
 
-    /* ========================================= */
-    /* 2. TOKENS SEMÂNTICOS (O que a interface usa) */
-    /* ========================================= */
-    --bg: var(--hz-white);
-    --bg-subtle: var(--hz-mist);
-    --surface: var(--hz-white);
-    --surface-elevated: var(--hz-surface);
-    --text-primary: var(--hz-black);
-    --text-secondary: var(--hz-gray);
-    --text-tertiary: #A3A3A3;
-    --border: var(--hz-silver);
-    
-    /* Cor de Destaque Padrão (Vermelho Horazion) */
-    --hz-accent: #F00511;
-    --accent: linear-gradient(90deg, var(--hz-accent) 0%, #FFA979 100%);
+    /* Tema Claro (Padrão) */
+    --bg: #FFFFFF;
+    --surface: #FAFAFA;
+    --border: #E5E7EB;
+    --text-primary: #161616;
+    --text-secondary: #71717A;
+    --text-tertiary: #A1A1AA;
 
-    /* ========================================= */
-    /* 3. SOMBRAS (Profundidade)                 */
-    /* ========================================= */
-    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-sm: 0 4px 10px rgba(0,0,0,0.05);
-    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-    --shadow-lg: 0 16px 40px rgba(0,0,0,0.10);
-    --shadow-xl: 0 24px 60px rgba(0,0,0,0.15);
+    /* Destaque Padrão: Horazion (Preto no Claro) */
+    --hz-accent: #161616;
+    --hz-accent-fg: #FFFFFF;
+    --hz-accent-soft: #F4F4F5;
+    --hz-accent-soft-fg: #161616;
 
-    /* ========================================= */
-    /* 4. TIPOGRAFIA E ACESSIBILIDADE BASE       */
-    /* ========================================= */
-    --font-base-size: 16px;
-    --font-family-base: inherit; 
+    /* Acessibilidade Global */
+    --html-font-size: 16px;
+    --html-filter: none;
+    --font-family-base: inherit;
     --text-transform: none;
-    --letter-spacing: normal;
   }
 
   /* ========================================= */
-  /* MUTAÇÃO 1: TEMA ESCURO                    */
+  /* TEMA ESCURO                               */
   /* ========================================= */
   [data-theme="dark"] {
     --bg: #09090B;
-    --bg-subtle: #141416;
-    --surface: #111113;
-    --surface-elevated: #18181B;
+    --surface: #121214;
+    --border: #27272A;
     --text-primary: #FAFAFA;
     --text-secondary: #A1A1AA;
     --text-tertiary: #52525B;
-    --border: #27272A;
+
+    /* Destaque Padrão: Horazion (Invertido para Branco no Escuro) */
+    --hz-accent: #FAFAFA;
+    --hz-accent-fg: #161616;
+    --hz-accent-soft: #18181B;
+    --hz-accent-soft-fg: #FAFAFA;
   }
 
   /* ========================================= */
-  /* MUTAÇÃO 2: CORES DE DESTAQUE (ACCENT)     */
+  /* LÓGICA DE CORES (ACCENT)                  */
   /* ========================================= */
-  [data-accent="horizon"] { 
-    --hz-accent: #F00511; 
-    --accent: linear-gradient(90deg, #F00511 0%, #FFA979 100%); 
-  }
-  [data-accent="neon"] { 
-    --hz-accent: #8B5CF6; 
-    --accent: linear-gradient(90deg, #8B5CF6 0%, #D8B4FE 100%); 
-  }
-  [data-accent="cyber"] { 
-    --hz-accent: #06B6D4; 
-    --accent: linear-gradient(90deg, #06B6D4 0%, #67E8F9 100%); 
-  }
-
-  /* ========================================= */
-  /* MUTAÇÃO 3: ESCALA DE TEXTO E LEITURA      */
-  /* ========================================= */
-  [data-textsize="small"] { --font-base-size: 14px; }
-  [data-textsize="normal"] { --font-base-size: 16px; }
-  [data-textsize="large"] { --font-base-size: 18px; }
-
-  [data-dyslexia="true"] { 
-    --font-family-base: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important; 
-    --letter-spacing: 0.05em;
-  }
   
-  [data-allcaps="true"] { 
-    --text-transform: uppercase; 
-    --letter-spacing: 0.05em;
+  /* VERMELHO */
+  [data-accent="red"] {
+    --hz-accent: #E11D48;
+    --hz-accent-fg: #FFFFFF;
+    --hz-accent-soft: #FEF2F2;
+    --hz-accent-soft-fg: #9F1239;
+  }
+  [data-theme="dark"][data-accent="red"] {
+    --hz-accent: #F87171;
+    --hz-accent-fg: #450A0A; /* Texto escuro no botão claro */
+    --hz-accent-soft: #450A0A; /* Fundo pastel muito escuro */
+    --hz-accent-soft-fg: #FECACA; /* Letra clara no fundo pastel */
+  }
+
+  /* ROXO NEON */
+  [data-accent="purple"] {
+    --hz-accent: #7C3AED;
+    --hz-accent-fg: #FFFFFF;
+    --hz-accent-soft: #F5F3FF;
+    --hz-accent-soft-fg: #5B21B6;
+  }
+  [data-theme="dark"][data-accent="purple"] {
+    --hz-accent: #A78BFA;
+    --hz-accent-fg: #2E1065;
+    --hz-accent-soft: #2E1065;
+    --hz-accent-soft-fg: #DDD6FE;
+  }
+
+  /* AZUL CYBER */
+  [data-accent="cyan"] {
+    --hz-accent: #0891B2;
+    --hz-accent-fg: #FFFFFF;
+    --hz-accent-soft: #ECFEFF;
+    --hz-accent-soft-fg: #155E75;
+  }
+  [data-theme="dark"][data-accent="cyan"] {
+    --hz-accent: #22D3EE;
+    --hz-accent-fg: #083344;
+    --hz-accent-soft: #083344;
+    --hz-accent-soft-fg: #A5F3FC;
   }
 
   /* ========================================= */
-  /* MUTAÇÃO 4: FILTROS DE DALTONISMO          */
+  /* ACESSIBILIDADE E TIPOGRAFIA               */
   /* ========================================= */
-  [data-daltonism="protanopia"] { filter: saturate(1.2) hue-rotate(5deg) contrast(1.1); }
-  [data-daltonism="deuteranopia"] { filter: saturate(1.2) hue-rotate(-5deg) contrast(1.1); }
-  [data-daltonism="tritanopia"] { filter: saturate(1.2) hue-rotate(180deg) contrast(1.1); }
+  [data-textsize="small"] { --html-font-size: 14px; }
+  [data-textsize="large"] { --html-font-size: 18px; }
+  [data-dyslexia="true"] { --font-family-base: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important; }
+  [data-allcaps="true"] { --text-transform: uppercase !important; }
 
-  /* ========================================= */
-  /* REGRAS GLOBAIS DO SISTEMA                 */
-  /* ========================================= */
+  [data-daltonism="protanopia"] { --html-filter: saturate(1.4) hue-rotate(10deg); }
+  [data-daltonism="deuteranopia"] { --html-filter: saturate(1.4) hue-rotate(-10deg); }
+  [data-daltonism="tritanopia"] { --html-filter: contrast(1.2) sepia(0.2); }
+
+  /* Aplicação Forçada */
+  html {
+    font-size: var(--html-font-size);
+    filter: var(--html-filter);
+    transition: font-size 0.3s ease, filter 0.3s ease;
+  }
+
   * {
-    border-color: var(--border); /* <-- CORREÇÃO: CSS Nativo em vez de @apply */
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    border-color: var(--border);
+    font-family: var(--font-family-base);
+    text-transform: var(--text-transform);
   }
 
   body {
     @apply antialiased;
-    
     background-color: var(--bg);
     color: var(--text-primary);
-    font-size: var(--font-base-size);
-    font-family: var(--font-family-base);
-    text-transform: var(--text-transform);
-    letter-spacing: var(--letter-spacing);
-    
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+}
+
+/* ========================================= */
+/* CLASSES UTILITÁRIAS DINÂMICAS             */
+/* ========================================= */
+@layer components {
+  .bg-accent { background-color: var(--hz-accent) !important; color: var(--hz-accent-fg) !important; }
+  .bg-accent-soft { background-color: var(--hz-accent-soft) !important; color: var(--hz-accent-soft-fg) !important; }
+  .text-accent { color: var(--hz-accent) !important; }
+  .border-accent { border-color: var(--hz-accent) !important; }
+
+  /* Botão Inteligente */
+  .btn-accent {
+    background-color: var(--hz-accent);
+    color: var(--hz-accent-fg);
+    @apply h-[48px] px-8 rounded-[16px] font-bold shadow-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2;
   }
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }

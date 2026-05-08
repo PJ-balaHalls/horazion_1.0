@@ -229,16 +229,19 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
-        {/* JSON‑LD estático via <script> nativo para evitar mismatch de hidratação do Next.js */}
+        {/* As tags meta e links são geridas nativamente pelo Next.js */}
+      </head>
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[var(--bg)] text-[var(--text-primary)]`}
+      >
+        {/* JSON‑LD estático movido para o body para evitar mismatch de hidratação com extensões do Chrome */}
         <script
           id="horazion-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[var(--bg)] text-[var(--text-primary)]`}
-      >
+
         {/* Camada de Orquestração de Layout */}
         <div className="relative flex min-h-screen flex-col">
           {children}
